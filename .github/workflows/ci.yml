@@ -8,8 +8,10 @@ permissions:
 
 jobs:
   test:
-    runs-on: macos-15
+    # Intel runners: free arm64 macOS runners for public repos queue for 15+ minutes and time out.
+    runs-on: macos-26-intel
+    timeout-minutes: 20
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - run: swift build
       - run: swift test
