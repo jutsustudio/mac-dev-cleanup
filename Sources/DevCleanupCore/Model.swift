@@ -6,12 +6,23 @@ public struct Env: Sendable {
     public var tmp: URL
     public var now: Date
 
-    public init(home: URL = FileManager.default.homeDirectoryForCurrentUser,
+    public init(home: URL = Env.userHome,
                 tmp: URL = URL(fileURLWithPath: "/private/tmp"),
                 now: Date = Date()) {
         self.home = home
         self.tmp = tmp
         self.now = now
+    }
+
+    /// The user's home folder. Only a build with `-DDEMO_HOME` reads `$HOME` instead,
+    /// so the demo recording in `demo/` runs against a throwaway folder.
+    public static var userHome: URL {
+        #if DEMO_HOME
+        if let home = ProcessInfo.processInfo.environment["HOME"] {
+            return URL(fileURLWithPath: home, isDirectory: true)
+        }
+        #endif
+        return FileManager.default.homeDirectoryForCurrentUser
     }
 
     /// `home` joined with a relative path such as "Library/Developer/Xcode/DerivedData".

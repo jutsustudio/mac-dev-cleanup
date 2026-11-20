@@ -6,6 +6,8 @@ Clean up Mac disk space from the terminal: Xcode DerivedData, node_modules, Rust
 
 **mac-dev-cleanup** is a free, open-source command-line disk cleaner for macOS, built for developers. It finds build output, package caches, Docker data and AI agent files, shows what deleting each one costs you, and deletes nothing unless you pass `--yes`. One small Swift binary, no dependencies.
 
+![mac-dev-cleanup scanning a Mac, cleaning 4.56 GB with --yes, then scanning again](assets/demo.gif)
+
 Example output (sizes are illustrative):
 
 ```
